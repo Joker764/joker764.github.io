@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="linux,tool,vim,">
+  <meta name="keywords" content="linux,vim,tool,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="vim 是从 vi 发展出来的一个文本编辑器。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。 vim 的常用命令以及配置。">
-<meta name="keywords" content="linux,tool,vim">
+<meta name="keywords" content="linux,vim,tool">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vim 使用手册">
 <meta property="og:url" content="https://joker764.github.io/2019/08/28/vim-使用手册/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="vim 是从 vi 发展出来的一个文本编辑器。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。 vim 的常用命令以及配置。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-28T11:55:06.399Z">
+<meta property="og:updated_time" content="2019-08-29T13:55:46.277Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vim 使用手册">
 <meta name="twitter:description" content="vim 是从 vi 发展出来的一个文本编辑器。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。 vim 的常用命令以及配置。">
@@ -380,7 +380,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k 字
+                  1.4k 字
                 </span>
               
 
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  5 分钟
                 </span>
               
             </div>
@@ -430,6 +430,10 @@
 <li><code>nspace</code>：向右移动 n 个字符</li>
 <li><code>backspace</code> ：向左移动一个字符</li>
 <li><code>nbackspace</code>：向左移动 n 个字符</li>
+<li><code>fo</code>： 在当前行内下一个出现字母 <code>o</code> 的地方</li>
+<li><code>Fo</code>： 当前行内，上一个出现字母 <code>o</code> 的地方</li>
+<li><code>;</code>： 配合 <code>f</code>、<code>F</code>、<code>t</code>、<code>T</code> 使用，到下一个搜索的地方</li>
+<li><code>,</code>： 到上一个搜索的地方</li>
 </ul>
 <p><strong>单词移动</strong></p>
 <ul>
@@ -439,8 +443,6 @@
 <li><code>B</code>： 向左移动一个长单词，定位在词首</li>
 <li><code>e</code>：向右移动一个词，并且光标定位在词尾</li>
 <li><code>E</code>： 向右移动一个长单词，定位在词尾</li>
-<li><code>fo</code>： 在当前行内下一个出现字母 <code>o</code> 的地方</li>
-<li><code>Fo</code>： 当前行内，上一个出现字母 <code>o</code> 的地方</li>
 </ul>
 <p><strong>行移动</strong></p>
 <ul>
@@ -568,7 +570,7 @@
 </ul>
 <h2 id="4-配置"><a href="#4-配置" class="headerlink" title="4. 配置"></a>4. 配置</h2><p>更多配置可以参考 <a href="http://learnvimscriptthehardway.onefloweroneworld.com/" target="_blank" rel="noopener">learnvimscriptthehardway</a></p>
 <p>我的配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">set number</span><br><span class="line">set cursorline</span><br><span class="line">set tabstop=4</span><br><span class="line"></span><br><span class="line">set encoding=utf-8</span><br><span class="line">set fileencoding=utf-8</span><br><span class="line">set fileencodings=ucs-bom,utf-8,chinese,latin1</span><br><span class="line"></span><br><span class="line">syntax on</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" = 设置行号和选中行</span></span><br><span class="line"><span class="string">set number</span></span><br><span class="line"><span class="string">set cursorline</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> = 设置 tab 宽度为  4</span><br><span class="line"><span class="built_in">set</span> tabstop=4</span><br><span class="line"><span class="built_in">set</span> softtabstop=4</span><br><span class="line"><span class="built_in">set</span> smartindent</span><br><span class="line"><span class="built_in">set</span> shiftwidth=4</span><br><span class="line"></span><br><span class="line"><span class="string">" = 设置编码格式</span></span><br><span class="line"><span class="string">set encoding=utf-8</span></span><br><span class="line"><span class="string">set fileencoding=utf-8</span></span><br><span class="line"><span class="string">set fileencodings=ucs-bom,utf-8,chinese,latin1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> = 高亮代码</span><br><span class="line">syntax on</span><br><span class="line"></span><br><span class="line"><span class="string">" = 选中行在屏幕中上下至少有 5 行</span></span><br><span class="line"><span class="string">set scrolloff=5</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> = 在插入模式中，光标的样式变成和 word 一样的一个竖线 |</span><br><span class="line"><span class="built_in">let</span> &amp;t_SI = <span class="string">"\&lt;Esc&gt;]50;CursorShape=1\x7"</span></span><br><span class="line"><span class="built_in">let</span> &amp;t_SR = <span class="string">"\&lt;Esc&gt;]50;CursorShape=2\x7"</span></span><br><span class="line"><span class="built_in">let</span> &amp;t_EI = <span class="string">"\&lt;Esc&gt;]50;CursorShape=0\x7"</span></span><br></pre></td></tr></table></figure>
 
 
       
@@ -618,9 +620,9 @@
           
             <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
           
-            <a href="/tags/tool/" rel="tag"><i class="fa fa-tag"></i> tool</a>
-          
             <a href="/tags/vim/" rel="tag"><i class="fa fa-tag"></i> vim</a>
+          
+            <a href="/tags/tool/" rel="tag"><i class="fa fa-tag"></i> tool</a>
           
         </div>
       
@@ -746,7 +748,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
