@@ -26,6 +26,10 @@ vim 的常用命令以及配置。
 - `nspace`：向右移动 n 个字符
 - `backspace` ：向左移动一个字符
 - `nbackspace`：向左移动 n 个字符
+- `fo`： 在当前行内下一个出现字母 `o` 的地方
+- `Fo`： 当前行内，上一个出现字母 `o` 的地方
+- `;`： 配合 `f`、`F`、`t`、`T` 使用，到下一个搜索的地方
+- `,`： 到上一个搜索的地方
 
 **单词移动**
 
@@ -35,8 +39,6 @@ vim 的常用命令以及配置。
 - `B`： 向左移动一个长单词，定位在词首
 - `e`：向右移动一个词，并且光标定位在词尾
 - `E`： 向右移动一个长单词，定位在词尾
-- `fo`： 在当前行内下一个出现字母 `o` 的地方
-- `Fo`： 当前行内，上一个出现字母 `o` 的地方
 
 **行移动**
 
@@ -184,16 +186,31 @@ vim 的常用命令以及配置。
 
 我的配置：
 
-```unix
+```bash
+" = 设置行号和选中行
 set number
 set cursorline
-set tabstop=4
 
+" = 设置 tab 宽度为  4
+set tabstop=4
+set softtabstop=4
+set smartindent
+set shiftwidth=4
+
+" = 设置编码格式
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,chinese,latin1
 
+" = 高亮代码
 syntax on
 
+" = 选中行在屏幕中上下至少有 5 行
+set scrolloff=5
+
+" = 在插入模式中，光标的样式变成和 word 一样的一个竖线 |
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 ```
 
