@@ -92,7 +92,9 @@
 <meta property="og:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/2-1.png?raw=true">
 <meta property="og:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/3-1.png?raw=true">
 <meta property="og:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/3-2.png?raw=true">
-<meta property="og:updated_time" content="2019-08-29T14:10:45.580Z">
+<meta property="og:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/4-1.png?raw=true">
+<meta property="og:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/5-1.png?raw=true">
+<meta property="og:updated_time" content="2019-08-30T02:36:10.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vim 使用技巧（一）- Vim 解决问题的方式">
 <meta name="twitter:description" content="本质上讲，我们的工作是重复性的。不论是在几个不同的地方做相同的小改动，还是在文档的相似结构间移动，我们都会重复很多操作。凡是可以简化重复性操作的方式，都会成倍地节省我们的时间。">
@@ -169,7 +171,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">Wubba lubba dub dub</p>
       
   </div>
 
@@ -386,7 +388,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  966 字
+                  2k 字
                 </span>
               
 
@@ -402,7 +404,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  3 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -466,16 +468,61 @@
 <p>我们可以用一种常用的 vim 操作习惯在一个字符前后各添加一个空格。乍一看，这种方法比较古怪，不过好处是可以重复</p>
 </blockquote>
 <p><strong>测试文本</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">"method("</span>+argument1+<span class="string">","</span>+argument2+<span class="string">")"</span>;</span><br><span class="line"><span class="comment">// 需要改变为：</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="string">"method("</span> + argument1 + <span class="string">","</span> + argument2+<span class="string">")"</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">"method("</span>+argument1+<span class="string">","</span>+argument2+<span class="string">")"</span>;</span><br><span class="line"><span class="comment">// 需要改变为：</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="string">"method("</span> + argument1 + <span class="string">","</span> + argument2 + <span class="string">")"</span>;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/3-1.png?raw=true" alt></p>
 <p><strong>使移动可重复</strong></p>
-<p><code>f{char}</code> 命令让 vim 查找下一处指定字符出现的位置，如果找到了，就直接把光标移动到那里（详细可见 <code>:h f</code>）。因此当我们输入 <code>f+</code> 时，光标会直接移到下一个出现 <code>+</code> 的位置。我们将会在<a href>技巧 49</a>里学到更多关于 <code>f{char}</code> 命令的知识。</p>
+<p><code>f{char}</code> 命令让 vim 查找下一处指定字符出现的位置，如果找到了，就直接把光标移动到那里（详细可见 <code>:h f</code>）。因此当我们输入 <code>f+</code> 时，光标会直接移到下一个出现 <code>+</code> 的位置。我们将会在<a href>技巧 49</a> 里学到更多关于 <code>f{char}</code> 命令的知识。</p>
 <p>完成第一处修改后，可以直接重复按 <code>f+</code> 去找下一个加号，不过 <code>;</code> 命令会重复查找上次 <code>f</code> 命令所查找的字符，因此我们不用连续输入 4 次 <code>f+</code>，而是只用输入一次，剩下的直接输入 <code>;</code> 就好了。</p>
 <p><img src="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/3-2.png?raw=true" alt></p>
 <p><code>s</code> 命令把两个操作合为一个：它先删除光标下的字符，然后进入插入模式。在删除 <code>+</code> 后，我们先输入 <code>+</code> ，然后退出插入模式。</p>
 <p>先退一步，然后前进三步，看起来可能不够直接。但是这样做的最大的好处是：我们可以使用 <code>.</code> 命令重复这一修改操作。我们需要做的只是把光标移动到下一个 <code>+</code> 处，使用 <code>.</code> 命令重复这一操作即可。</p>
-<h2 id="技巧4：-执行、重复、返回"><a href="#技巧4：-执行、重复、返回" class="headerlink" title="技巧4： 执行、重复、返回"></a>技巧4： 执行、重复、返回</h2>
+<h2 id="技巧4：-执行、重复、返回"><a href="#技巧4：-执行、重复、返回" class="headerlink" title="技巧4： 执行、重复、返回"></a>技巧4： 执行、重复、返回</h2><blockquote>
+<p>在面对重复性工作时，我们需要移动动作和修改动作都能够重复，这样就可以达到一个最佳的编辑模式。这样 vim 就可以记住我们的操作。本节是介绍这些可重复操作，并学习如何回退。</p>
+</blockquote>
+<ul>
+<li><code>.</code> 可以重复上次修改</li>
+<li><code>@:</code> 可以用来重复任意 ex 命令（在<a href>技巧 31</a> 中讨论）</li>
+<li><code>&amp;</code> 可以重复上一次的 <code>:substitute</code> 命令（参见<a href>技巧 92</a>）</li>
+</ul>
+<p>当 vim 让一个操作或移动可以很方便的重复时，它总是会提供某种方式，让我们在不小心做过头时能够回退，表 1-1 总结了 vim 中可重复执行的命令，以及相应的回退方式。</p>
+<p><img src="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/4-1.png?raw=true" alt></p>
+<h2 id="技巧5：-查找并手动替换"><a href="#技巧5：-查找并手动替换" class="headerlink" title="技巧5： 查找并手动替换"></a>技巧5： 查找并手动替换</h2><blockquote>
+<p>vim 提供了一个 <code>:substitute</code> 命令专门用于查找替换功能，不过用上面的技术，我们也可以手动修改第一个出现的地方，然后再一个一个的替换其他匹配项。</p>
+</blockquote>
+<p><strong>测试文本</strong></p>
+<p>在下面这段文本中，每一行都出现了单词 <em>content</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...We&apos;re waiting for content before the site can go live...</span><br><span class="line">...If you are content with this, let&apos;s go ahead with it...</span><br><span class="line">...We&apos;ll launch as soon as we have the content...</span><br></pre></td></tr></table></figure>
+
+<p>假设我们想用单词 <em>copy</em> 来替代 <em>content</em>，其实很简单，只需要：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/content/<span class="keyword">copy</span>/g</span><br></pre></td></tr></table></figure>
+
+<p>但是我们并不想所有的 <em>content</em> 都被替换成 <em>copy</em>，因为有的地方可能会出现语义错误。需要时刻留神，对每个地方都要问 <em>这里需要修改吗？</em>，<code>subtitute</code> 也能胜任这个工作（<a href>技巧 89</a>），不过我们这里有另一种方法.</p>
+<p><strong>偷懒的办法： 无需输入就可以进行查找</strong></p>
+<p><code>*</code> 命令可以查找当前光标下的单词（详见： <code>:h *</code>）。我们可以先直接查找 <em>content</em> 单词：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/content</span><br></pre></td></tr></table></figure>
+
+<p>或者，简单的把光标放在这个单词上，然后按 <code>*</code> 键：</p>
+<p><img src="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/5-1.png?raw=true" alt></p>
+<p>刚开始，把光标移动到 <em>content</em> 上，然后使用 <code>*</code> 命令，这样会产生两个结果：</p>
+<ul>
+<li>光标会跳到下一个匹配项上</li>
+<li>所有出现这个词的地方都会被高亮，如果没有高亮，需要设置 <code>:set hls</code>，详情可见<a href>技巧 80</a></li>
+</ul>
+<p>执行过一次查找的命令之后，我们只需要按 <code>n</code> 就可以跳到下一个匹配项了，按 <code>N</code> 就是返回到上一次搜索的地方。</p>
+<p><strong>使修改可重复</strong></p>
+<p>当光标位于 <em>content</em> 的开头时，我们就可以开始修改了：需要删除这个单词，然后输入代替的词。<code>cw</code> 命令将这两步合成了一步。</p>
+<p>因此只需要 <code>cw</code> <em>copy</em> <code>Esc</code> 就修改完成了，按 <code>n</code> 到下一个匹配处，考虑是否需要修改，需要修改的话就按 <code>.</code> 重复上一次修改。</p>
+<h2 id="技巧6：-结识-范式"><a href="#技巧6：-结识-范式" class="headerlink" title="技巧6： 结识 . 范式"></a>技巧6： 结识 <code>.</code> 范式</h2><blockquote>
+<p>到目前为止的三个简单的编辑任务，我们都使用了 <code>.</code> 命令解决了问题。</p>
+</blockquote>
+<p><strong>回顾前面三个 <code>.</code> 命令编辑任务</strong></p>
+<p>在<a href="https://joker764.github.io/2019/08/29/vim-使用技巧（一）/#技巧2：-不要自我重复">技巧 2</a> 中，我们想在一系列行的结尾添加分号。我们先用 <code>A;&lt;Esc&gt;</code>修改了第一行，做完这步准备后，就可以使用 . 命令对后续行重复此修改。我们使用了<code>j</code>命令在行间移动，要完成剩余的修改，只需简单地按足够多次 <code>j.</code>就可以了。</p>
+<p>在<a href="https://joker764.github.io/2019/08/29/vim-使用技巧（一）/#技巧3：-以退为进">技巧 3</a> 中，我们想为每个<code>+</code> 号的前后各添加一个空格。我们先用 <code>f+</code> 命令跳到目标字符上，然后用 <code>s</code> 命令把一个字符替换成 3 个，做完这步准备后，我们就可以按若干次 <code>;.</code> 完成此任务。</p>
+<p>在<a href="https://joker764.github.io/2019/08/29/vim-使用技巧（一）/#技巧5：-查找并手动替换">技巧 5</a> 中，我们想把每处出现单词 <em>content</em> 的地方都替换成 <em>copy</em>。我们使用 <code>*</code> 命令来查找目标单词，然后用 <code>cw</code> 命令修改第一处地方。做完这步准备后，就可以用 <code>n</code> 键跳到下一匹配项，然后用 <code>.</code> 键做相同的修改。要完成这项任务，只需简单地按足够多次 <code>n.</code> 就行了。</p>
+<p><strong>理想模式： 用一键移动，另一键执行</strong></p>
+<p>这些例子的共同点就是：<em>用一键移动，另一键执行</em>，为了方便起见，我们把它称作 <em><code>.</code>  范式</em>。</p>
+
       
     </div>
     
@@ -682,7 +729,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧1：-结识-命令"><span class="nav-text">技巧1： 结识  . 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧2：-不要自我重复"><span class="nav-text">技巧2： 不要自我重复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧3：-以退为进"><span class="nav-text">技巧3： 以退为进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧4：-执行、重复、返回"><span class="nav-text">技巧4： 执行、重复、返回</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧1：-结识-命令"><span class="nav-text">技巧1： 结识  . 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧2：-不要自我重复"><span class="nav-text">技巧2： 不要自我重复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧3：-以退为进"><span class="nav-text">技巧3： 以退为进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧4：-执行、重复、返回"><span class="nav-text">技巧4： 执行、重复、返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧5：-查找并手动替换"><span class="nav-text">技巧5： 查找并手动替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧6：-结识-范式"><span class="nav-text">技巧6： 结识 . 范式</span></a></li></ol></div>
             
 
           </div>
