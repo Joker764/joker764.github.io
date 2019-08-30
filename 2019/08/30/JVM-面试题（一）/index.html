@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="linux,shell,命令行,">
+  <meta name="keywords" content="java,面试,jvm,">
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="linux 中常用的命令行工具，对文本进行处理，有 grep、cut、sort、uniq、tee、diff、paste、tr，其中最常用的就是 grep 和 cut 还有更牛逼的 ack。">
-<meta name="keywords" content="linux,shell,命令行">
+<meta name="description" content="JVM 内存模型、Java 对象的创建过程">
+<meta name="keywords" content="java,面试,jvm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux 常用命令之文本处理工具">
-<meta property="og:url" content="https://joker764.github.io/2019/08/27/linux-常用命令之文本处理工具/index.html">
+<meta property="og:title" content="JVM 面试题（一）">
+<meta property="og:url" content="https://joker764.github.io/2019/08/30/JVM-面试题（一）/index.html">
 <meta property="og:site_name" content="JoJo">
-<meta property="og:description" content="linux 中常用的命令行工具，对文本进行处理，有 grep、cut、sort、uniq、tee、diff、paste、tr，其中最常用的就是 grep 和 cut 还有更牛逼的 ack。">
+<meta property="og:description" content="JVM 内存模型、Java 对象的创建过程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-28T03:43:39.657Z">
+<meta property="og:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/interview/1-2.png?raw=true">
+<meta property="og:updated_time" content="2019-08-30T13:59:28.510Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux 常用命令之文本处理工具">
-<meta name="twitter:description" content="linux 中常用的命令行工具，对文本进行处理，有 grep、cut、sort、uniq、tee、diff、paste、tr，其中最常用的就是 grep 和 cut 还有更牛逼的 ack。">
+<meta name="twitter:title" content="JVM 面试题（一）">
+<meta name="twitter:description" content="JVM 内存模型、Java 对象的创建过程">
+<meta name="twitter:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/interview/1-2.png?raw=true">
 
 
 
@@ -120,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="https://joker764.github.io/2019/08/27/linux-常用命令之文本处理工具/">
+  <link rel="canonical" href="https://joker764.github.io/2019/08/30/JVM-面试题（一）/">
 
 
 
@@ -128,7 +130,7 @@
 
 <!-- 网页加载条 -->
 <script src="https://neveryu.github.io/js/src/pace.min.js"></script>
-  <title>linux 常用命令之文本处理工具 | JoJo</title>
+  <title>JVM 面试题（一） | JoJo</title>
   
 
 
@@ -297,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://joker764.github.io/2019/08/27/linux-常用命令之文本处理工具/">
+    <link itemprop="mainEntityOfPage" href="https://joker764.github.io/2019/08/30/JVM-面试题（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Joker Jostar">
@@ -314,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">linux 常用命令之文本处理工具</h1>
+          <h1 class="post-title" itemprop="name headline">JVM 面试题（一）</h1>
         
 
         <div class="post-meta">
@@ -326,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-27T17:39:46+08:00">
-                2019-08-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-30T20:59:13+08:00">
+                2019-08-30
               </time>
             
 
@@ -349,8 +351,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -380,7 +382,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k 字
+                  691 字
                 </span>
               
 
@@ -396,7 +398,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  5 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -417,78 +419,33 @@
       
 
       
-        <p>linux 中常用的命令行工具，对文本进行处理，有 <code>grep</code>、<code>cut</code>、<code>sort</code>、<code>uniq</code>、<code>tee</code>、<code>diff</code>、<code>paste</code>、<code>tr</code>，其中最常用的就是 <code>grep</code> 和 <code>cut</code> 还有更牛逼的 <code>ack</code>。</p>
+        <p>JVM 内存模型、Java 对象的创建过程</p>
 <a id="more"></a>
 
-<h2 id="1-grep"><a href="#1-grep" class="headerlink" title="1. grep"></a>1. grep</h2><blockquote>
-<p><code>grep（global search regular expression(RE) and print out the line，全面搜索正则表达式并把行打印出来）</code>  是一种强大的文本搜索工具，他能使用正则表达式搜索文本，并把匹配的行打印出来。</p>
-</blockquote>
+<h2 id="1-Java-内存模型"><a href="#1-Java-内存模型" class="headerlink" title="1. Java 内存模型"></a>1. Java 内存模型</h2><p>Java 虚拟机在执行 Java 程序的过程中会把它所管理的内存区域划分为若干个不同的数据区域：</p>
+<p><img src="https://github.com/Joker764/joker764.github.io/blob/src/images/interview/1-2.png?raw=true" alt></p>
+<h3 id="1-1-程序计数器"><a href="#1-1-程序计数器" class="headerlink" title="1.1 程序计数器"></a>1.1 程序计数器</h3><p>程序计数器是一块较小的内存空间，可以看作是当前线程所执行的行号指示器。</p>
+<p>字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等功能都需要依赖这个计数器来完成。</p>
+<p>另外，为了线程切换后能恢复到正确的执行位置，每条线程都需要一个独立的程序计数器，各线程之间计数器互补影响，独立存储，我们称这类内存区域为 <em>线程私有</em> 的内存。</p>
+<p><strong>程序计数器的主要作用</strong></p>
 <ul>
-<li>用于过滤/搜索的特定字符</li>
-<li>可用正则表达式配合使用，使用十分灵活</li>
+<li>字节码通过改变程序计数器来依次读取指令来实现代码的流程控制</li>
+<li>在多线程情况下，用来记录当前线程的执行位置</li>
 </ul>
-<h3 id="常用选项"><a href="#常用选项" class="headerlink" title="常用选项"></a>常用选项</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">-i      # 不区分大小写</span><br><span class="line">-v      # 查找不包含指定行的内容，反向选择</span><br><span class="line">-w      # 按单词搜索</span><br><span class="line">-o      # 打印匹配关键字</span><br><span class="line">-n      # 显示行号</span><br><span class="line">-r      # 逐层遍历目录查找</span><br><span class="line">-A      # 显示匹配行以及其后面多少行</span><br><span class="line">-B      # 显示匹配行以及其前面多少行</span><br><span class="line">-C      # 显示匹配行以及其前后多少行</span><br><span class="line">-l      # 只列出匹配的文件名</span><br><span class="line">-L      # 列出不匹配的文件名</span><br><span class="line">-e      # 使用正则表达式</span><br><span class="line">-E      # 使用扩展正则匹配</span><br><span class="line">^key    # 以关键字开头</span><br><span class="line">key$    # 以关键字结尾</span><br><span class="line">^$      # 匹配空行</span><br><span class="line">--color=auto	# 将关键字加上颜色</span><br></pre></td></tr></table></figure>
-
-<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">^           # 锁定行的开始</span><br><span class="line">$           # 锁定行的结尾</span><br><span class="line">.           # 匹配一个非换行符的字符</span><br><span class="line">*           # 0 个或多个</span><br><span class="line">.*          # 任意字符</span><br><span class="line">[]          # 一个范围内的字符，[Gg] 表示 G 或 g</span><br><span class="line">[^]         # 一定范围内以什么开头</span><br><span class="line">\(..\)      # 标记匹配符，\(love\)，此时 love 就被标记为 1</span><br><span class="line">\&lt;          # 锁定单词的开始，匹配包含这个单词的行</span><br><span class="line">\&gt;          # 锁定单词的结尾</span><br><span class="line">x\&#123;m\&#125;      # 重复字符 x，重复了 m 次</span><br><span class="line">x\&#123;m,\&#125;     # 至少重复了 m 次</span><br><span class="line">x\&#123;m,n\&#125;    # 重复了 m～n 次</span><br><span class="line">\w          # 匹配文字和字符串，即 [A-Za-z0-9]</span><br><span class="line">\W          # \w 的取反形式，匹配一个或多个非单词字符，比如点句号等</span><br><span class="line">\b          # 单词锁定符，如 \bjojo\b 表示只匹配 jojo</span><br></pre></td></tr></table></figure>
-
-<h3 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h3><p>在文件中搜索一个单词，命令会返回一个包含 “match_pattern” 的文本行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep match_pattern file_name</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"match_pattern"</span> file_name</span></span><br></pre></td></tr></table></figure>
-
-<p>在多个文件中查找：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"match_pattern"</span> file_1 file_2 file3 ...</span></span><br></pre></td></tr></table></figure>
-
-<p>输出除了目标之外的所有行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -v <span class="string">"match_pattern"</span> file_name</span></span><br></pre></td></tr></table></figure>
-
-<p>使用正则表达式：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -E <span class="string">"[1-9]+"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> egrep <span class="string">"[1-9]+"</span></span></span><br></pre></td></tr></table></figure>
-
-<p>只输出文件中匹配的部分，主要配合正则使用：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> this is a <span class="built_in">test</span> line. | grep -o -E <span class="string">"[a-z]+\."</span></span></span><br></pre></td></tr></table></figure>
-
-<p>统计文件或文件中包含匹配字符串的行数：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -c <span class="string">"text"</span> file_name</span></span><br></pre></td></tr></table></figure>
-
-<p>输出包含匹配字符串的行数：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"text"</span> -n file_name</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat file_name | grep <span class="string">"text"</span> -n</span></span><br></pre></td></tr></table></figure>
-
-<p>打印样式匹配所位于的字符或字节偏移：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> gun is not unix | grep -b -o <span class="string">"not"</span></span></span><br></pre></td></tr></table></figure>
-
-<p>搜索多个文件并查找匹配文本在哪些文件中：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -l <span class="string">"text"</span> file1 file2 file3 ...</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="递归搜索文件"><a href="#递归搜索文件" class="headerlink" title="递归搜索文件"></a>递归搜索文件</h3><p>在多级目录中对文本进行递归搜索：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"text"</span> ./ -r -n</span></span><br></pre></td></tr></table></figure>
-
-<p>忽略大小写：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"hello world"</span> | grep -i <span class="string">"HELLO"</span></span></span><br></pre></td></tr></table></figure>
-
-<p>选项 <code>-e</code> 可以匹配多个样式：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> this is a text line | grep -e <span class="string">"is"</span> -e <span class="string">"line"</span> -o</span></span><br></pre></td></tr></table></figure>
-
-<p>也可以使用 <code>-f</code> 来匹配多个样式，使用的是样式文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat patfile</span></span><br><span class="line">aaa</span><br><span class="line">bbb</span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> aaa bbb ccc ddd eee | grep -f patfile -o</span></span><br></pre></td></tr></table></figure>
-
-<p>在 grep 搜索结果中包括或排除指定文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 只在目录中所有的 .php 和 .html 文件中递归搜索字符 <span class="string">"main()"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"main()"</span> . -r --include *.&#123;php,html&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在搜索结果中排除所有的 README 文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"main()"</span> . -r --exclude <span class="string">"README"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在搜索结果中排除 filelist 文件列表中的文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"main()"</span> . -r --exclude-from filelsit</span></span><br></pre></td></tr></table></figure>
-
-<p>使用 0 值字节的后缀的 grep 与 xargs：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"aaa"</span> &gt; file1</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"bbb"</span> &gt; file2</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"ccc"</span> &gt; file3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"aaa"</span> file* -lZ | xargs -0 rm</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行后会删除 file1 和 file3，grep 的 -Z 选项是用来指定以 0 值字节为终结的文件名，xargs -0 读取输入并用 0 值字节终结符分割文件名，然后删除匹配文件</span></span><br></pre></td></tr></table></figure>
-
-<p>显示匹配到行之前多少行，之后多少行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> seq 10 | grep 5 -A 3</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> seq 10 | grep 5 -B 3</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> seq 10 | grep 5 -C 3</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果匹配结果有多个，中间会以 -- 作为分隔符</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-cut"><a href="#2-cut" class="headerlink" title="2. cut"></a>2. cut</h2><ul>
-<li>用于列的截取</li>
-<li>用于连接文件</li>
+<blockquote>
+<p>注意： 程序计数器是唯一一个不会出现 <code>OOM</code> 的内存区域，它的生命周期随着线程的创建而创建，随着线程的结束而死亡。</p>
+</blockquote>
+<h3 id="1-2-虚拟机栈"><a href="#1-2-虚拟机栈" class="headerlink" title="1.2 虚拟机栈"></a>1.2 虚拟机栈</h3><p>与程序计数器一样，Java 虚拟机栈也是线程私有的，它的生命周期和线程相同，描述的是 Java 方法执行的内存模型，每次方法调用的数据都是通过栈传递的。</p>
+<p>Java 内存可以粗糙的分为 堆（Heap） 和 栈（Stack），其中栈就是虚拟机栈，或者说是虚拟机中的局部变量表部分。（实际上，Java 虚拟机栈是由一个一个栈帧组成，而每个栈帧中都拥有：局部变量表、操作数栈、动态链接、方法出口信息等）</p>
+<p>局部变量表主要存放了编译器可知的各种数据类型（boolean、byte、char、short、int、float、long、double）、对象引用</p>
+<p>Java 虚拟机会出现两种异常：</p>
+<ul>
+<li><code>StackOverFlowError</code>： 若 Java 虚拟机栈的内存不允许动态扩展，当线程请求栈的深度大于虚拟机的最大深度时会出现</li>
+<li><code>OutOfMemoryError</code>：若 Java 虚拟机栈允许动态扩展，且线程请求栈时内存用完了，就会出现</li>
 </ul>
-<h3 id="常用选项-1"><a href="#常用选项-1" class="headerlink" title="常用选项"></a>常用选项</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-c      # 以字符为单位进行分割截取</span><br><span class="line">-d      # 自定义分隔符，默认为制表符 \t</span><br><span class="line">-f      # 与 -d 一起使用，指定截取哪个区域</span><br></pre></td></tr></table></figure>
-
-<h3 id="常见用法-1"><a href="#常见用法-1" class="headerlink" title="常见用法"></a>常见用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cut -d: -f1 test.text      <span class="comment"># 以 : 为分隔符的第一列内容</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cut -d: -f1,6,7 test.text  <span class="comment"># 以 : 为分隔符，第 1、6、7 列的内容</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cut -c4 test.txt           <span class="comment"># 截取文件每行中的第 4 个字符</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cut -c1-4 test.txt         <span class="comment"># 截取每行中的 1~4 个字符</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cut -c5- test.txt          <span class="comment"># 截取每行从第 5 个字符开始</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cut -c-2 test.txt          <span class="comment"># 截取每行的前面两个字符</span></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat test.txt</span></span><br><span class="line">No Name Mark Precent</span><br><span class="line">01 tom 69 91</span><br><span class="line">02 jack 71 87</span><br><span class="line">03 alex 68 98</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> cut -f2,3 test.txt</span></span><br><span class="line">Name Mark</span><br><span class="line">tom 69</span><br><span class="line">jack 71</span><br><span class="line">alex 68</span><br></pre></td></tr></table></figure>
-
+<p><strong>如何调用方法？</strong></p>
+<p>Java 栈可类比为数据结构中的栈，每次函数调用都会有一个栈帧被压入 Java 栈，每一个函数调用结束后，都会有一个栈帧被弹出。</p>
+<p>Java 方法有两种返回方式：<code>return</code> 和异常，不论哪种，栈帧都会被弹出。</p>
 
       
     </div>
@@ -506,11 +463,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
           
-            <a href="/tags/shell/" rel="tag"><i class="fa fa-tag"></i> shell</a>
+            <a href="/tags/面试/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
           
-            <a href="/tags/命令行/" rel="tag"><i class="fa fa-tag"></i> 命令行</a>
+            <a href="/tags/jvm/" rel="tag"><i class="fa fa-tag"></i> jvm</a>
           
         </div>
       
@@ -523,8 +480,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/26/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2019/08/30/vim-实用技巧（二）/" rel="next" title="vim 实用技巧（二）- 普通模式">
+                <i class="fa fa-chevron-left"></i> vim 实用技巧（二）- 普通模式
               </a>
             
           </div>
@@ -532,10 +489,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/28/vim-使用手册/" rel="prev" title="vim 使用手册">
-                vim 使用手册 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -669,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-grep"><span class="nav-text">1. grep</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用选项"><span class="nav-text">常用选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见用法"><span class="nav-text">常见用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归搜索文件"><span class="nav-text">递归搜索文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-cut"><span class="nav-text">2. cut</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用选项-1"><span class="nav-text">常用选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见用法-1"><span class="nav-text">常见用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-text">实例</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Java-内存模型"><span class="nav-text">1. Java 内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-程序计数器"><span class="nav-text">1.1 程序计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-虚拟机栈"><span class="nav-text">1.2 虚拟机栈</span></a></li></ol></li></ol></div>
             
 
           </div>

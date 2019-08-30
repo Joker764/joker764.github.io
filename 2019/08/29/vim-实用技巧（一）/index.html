@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/3-2.png?raw=true">
 <meta property="og:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/4-1.png?raw=true">
 <meta property="og:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/5-1.png?raw=true">
-<meta property="og:updated_time" content="2019-08-30T05:36:36.672Z">
+<meta property="og:updated_time" content="2019-08-30T05:41:08.375Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vim 实用技巧（一）- Vim 解决问题的方式">
 <meta name="twitter:description" content="本质上讲，我们的工作是重复性的。不论是在几个不同的地方做相同的小改动，还是在文档的相似结构间移动，我们都会重复很多操作。凡是可以简化重复性操作的方式，都会成倍地节省我们的时间。">
@@ -475,7 +475,7 @@
 <p><code>f{char}</code> 命令让 vim 查找下一处指定字符出现的位置，如果找到了，就直接把光标移动到那里（详细可见 <code>:h f</code>）。因此当我们输入 <code>f+</code> 时，光标会直接移到下一个出现 <code>+</code> 的位置。我们将会在<a href>技巧 49</a> 里学到更多关于 <code>f{char}</code> 命令的知识。</p>
 <p>完成第一处修改后，可以直接重复按 <code>f+</code> 去找下一个加号，不过 <code>;</code> 命令会重复查找上次 <code>f</code> 命令所查找的字符，因此我们不用连续输入 4 次 <code>f+</code>，而是只用输入一次，剩下的直接输入 <code>;</code> 就好了。</p>
 <p><img src="https://github.com/Joker764/joker764.github.io/blob/src/images/vim/3-2.png?raw=true" alt></p>
-<p><code>s</code> 命令把两个操作合为一个：它先删除光标下的字符，然后进入插入模式。在删除 <code>+</code> 后，我们先输入 <code>+</code> ，然后退出插入模式。</p>
+<p><code>s</code> 命令把两个操作合为一个：它先删除光标下的字符，然后进入插入模式。在删除 <code>+</code> 后，我们先输入 <code></code> <code>+</code> <code></code> ，然后退出插入模式。</p>
 <p>先退一步，然后前进三步，看起来可能不够直接。但是这样做的最大的好处是：我们可以使用 <code>.</code> 命令重复这一修改操作。我们需要做的只是把光标移动到下一个 <code>+</code> 处，使用 <code>.</code> 命令重复这一操作即可。</p>
 <h2 id="技巧4：-执行、重复、返回"><a href="#技巧4：-执行、重复、返回" class="headerlink" title="技巧4： 执行、重复、返回"></a>技巧4： 执行、重复、返回</h2><blockquote>
 <p>在面对重复性工作时，我们需要移动动作和修改动作都能够重复，这样就可以达到一个最佳的编辑模式。这样 vim 就可以记住我们的操作。本节是介绍这些可重复操作，并学习如何回退。</p>
@@ -532,35 +532,6 @@
     
 
     
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Joker Jostar 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="Joker Jostar 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
 
     
 
@@ -597,8 +568,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/30/vim-实用技巧（二）/" rel="prev" title="vim 实用技巧（二）">
-                vim 实用技巧（二） <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/30/vim-实用技巧（二）/" rel="prev" title="vim 实用技巧（二）- 普通模式">
+                vim 实用技巧（二）- 普通模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -678,7 +649,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -689,7 +660,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -700,7 +671,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
