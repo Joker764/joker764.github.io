@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[JVM 面试题（一）]]></title>
     <url>%2F2019%2F08%2F30%2FJVM-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[JVM 内存模型、Java 对象的创建过程 1. Java 内存模型Java 虚拟机在执行 Java 程序的过程中会把它所管理的内存区域划分为若干个不同的数据区域： 1.1 程序计数器程序计数器是一块较小的内存空间，可以看作是当前线程所执行的行号指示器。 字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等功能都需要依赖这个计数器来完成。 另外，为了线程切换后能恢复到正确的执行位置，每条线程都需要一个独立的程序计数器，各线程之间计数器互补影响，独立存储，我们称这类内存区域为 线程私有 的内存。 程序计数器的主要作用 字节码通过改变程序计数器来依次读取指令来实现代码的流程控制 在多线程情况下，用来记录当前线程的执行位置 注意： 程序计数器是唯一一个不会出现 OOM 的内存区域，它的生命周期随着线程的创建而创建，随着线程的结束而死亡。 1.2 虚拟机栈与程序计数器一样，Java 虚拟机栈也是线程私有的，它的生命周期和线程相同，描述的是 Java 方法执行的内存模型，每次方法调用的数据都是通过栈传递的。 Java 内存可以粗糙的分为 堆（Heap） 和 栈（Stack），其中栈就是虚拟机栈，或者说是虚拟机中的局部变量表部分。（实际上，Java 虚拟机栈是由一个一个栈帧组成，而每个栈帧中都拥有：局部变量表、操作数栈、动态链接、方法出口信息等） 局部变量表主要存放了编译器可知的各种数据类型（boolean、byte、char、short、int、float、long、double）、对象引用 Java 虚拟机会出现两种异常： StackOverFlowError： 若 Java 虚拟机栈的内存不允许动态扩展，当线程请求栈的深度大于虚拟机的最大深度时会出现 OutOfMemoryError：若 Java 虚拟机栈允许动态扩展，且线程请求栈时内存用完了，就会出现 如何调用方法？ Java 栈可类比为数据结构中的栈，每次函数调用都会有一个栈帧被压入 Java 栈，每一个函数调用结束后，都会有一个栈帧被弹出。 Java 方法有两种返回方式：return 和异常，不论哪种，栈帧都会被弹出。]]></content>
+    <content type="text"><![CDATA[JVM 内存模型、Java 对象的创建过程 1. Java 内存模型Java 虚拟机在执行 Java 程序的过程中会把它所管理的内存区域划分为若干个不同的数据区域： 1.1 程序计数器程序计数器是一块较小的内存空间，可以看作是当前线程所执行的行号指示器。 字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等功能都需要依赖这个计数器来完成。 另外，为了线程切换后能恢复到正确的执行位置，每条线程都需要一个独立的程序计数器，各线程之间计数器互补影响，独立存储，我们称这类内存区域为 线程私有 的内存。 程序计数器的主要作用 字节码通过改变程序计数器来依次读取指令来实现代码的流程控制 在多线程情况下，用来记录当前线程的执行位置 注意： 程序计数器是唯一一个不会出现 OOM 的内存区域，它的生命周期随着线程的创建而创建，随着线程的结束而死亡。 1.2 虚拟机栈与程序计数器一样，Java 虚拟机栈也是线程私有的，它的生命周期和线程相同，描述的是 Java 方法执行的内存模型，每次方法调用的数据都是通过栈传递的。 Java 内存可以粗糙的分为 堆（Heap） 和 栈（Stack），其中栈就是虚拟机栈，或者说是虚拟机中的局部变量表部分。（实际上，Java 虚拟机栈是由一个一个栈帧组成，而每个栈帧中都拥有：局部变量表、操作数栈、动态链接、方法出口信息等） 局部变量表主要存放了编译器可知的各种数据类型（boolean、byte、char、short、int、float、long、double）、对象引用 Java 虚拟机会出现两种异常： StackOverFlowError： 若 Java 虚拟机栈的内存不允许动态扩展，当线程请求栈的深度大于虚拟机的最大深度时会出现 OutOfMemoryError：若 Java 虚拟机栈允许动态扩展，且线程请求栈时内存用完了，就会出现 如何调用方法？ Java 栈可类比为数据结构中的栈，每次函数调用都会有一个栈帧被压入 Java 栈，每一个函数调用结束后，都会有一个栈帧被弹出。 Java 方法有两种返回方式：return 和异常，不论哪种，栈帧都会被弹出。 1.3 本地方法栈和虚拟机所发挥的作用非常相似，区别是：虚拟机栈为虚拟机执行 Java 方法（也就是字节码）服务，而本地方法栈作为虚拟机使用到的 Native 方法。在 HotSpot 虚拟机和 Java 虚拟机栈合二为一。 本地方法被执行的时候，在本地方法栈也会创建一个栈帧，用于存放该本地方法的局部变量，操作数栈、动态链接、出口信息。 方法执行完毕后相应的栈帧也会出栈并释放内存空间，也会出现 SOF 和 OOM 两种异常。 1.4 堆Java 虚拟机所管理的内存中最大的一块，Java 堆是所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例以及数组都在这里分配内存。 Java 堆是垃圾收集器管理的主要区域，因此也被称为 GC 堆（Garbage Collected Heap）。 从垃圾回收的角度，由于现在收集器基本都采用分代垃圾收集算法，所以 Java 堆还可以细分为：新生代和老年代；再细致一点就是 Eden、From Survivor、To Survivor 空间等。进一步划分的目的是更好地回收内存，或者更快地分配内存。 上图所示的 eden 区，s0，s1 区都属于新生代，tentired 属于老年代。大部分情况，对象都会首先在 Eden 区域分配，在一次新生代垃圾回收后，如果对象还存活，则会进入 s0 或者 s1，并且对象的年龄还会 +1（Eden 区 -&gt; Survivor 区后对象的初始年龄变为 1），当它的年龄增加到一定程度（默认为 15岁），机会被晋升到老年代中。对象晋升到老年代的年龄阈值，可以通过参数：-XX:MaxTenuringThreshold 来设置。 1.5 方法区方法区与 Java 堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。虽然 Java 虚拟机规范把方法区描述为堆的一个逻辑部分，但是它还有一个别名叫 No-Heap 1.5.1 方法区和永久代的关系 方法区也被称为永久代 方法区和永久代的关系类似于 Java 中接口和类的关系，类实现了接口，而永久代就是 HotSpot 虚拟机对虚拟机规范中方法区的一种实现。 也就是说，永久代是 HosSpot 的概念，方法区是Java虚拟机规范中的定义，是一种规范，而永久代是一种实现，一个是标准一个是实现，其他的虚拟机实现并没有永久带这一说法。 1.5.2 常用参数]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -66,10 +66,5 @@
         <tag>shell</tag>
         <tag>命令行</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2019%2F08%2F26%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
 </search>
