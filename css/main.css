@@ -498,7 +498,7 @@ code {
 code {
   padding: 2px 4px;
   word-wrap: break-word;
-  color: #555;
+  color: #ab539c;
   background: #eee;
   border-radius: 3px;
   font-size: 14px;
@@ -562,7 +562,6 @@ pre code {
   padding-left: 10px;
   padding-right: 10px;
   background-color: #2d2d2d;
-  color: #546e7a;
 }
 .highlight .line {
   height: 20px;
@@ -1929,7 +1928,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #67ff85;
+  background: #d22bff;
 }
 .links-of-blogroll {
   font-size: 13px;

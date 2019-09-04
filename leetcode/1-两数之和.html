@@ -79,18 +79,23 @@
 
 
 
-<meta name="description" content="leetcode 中的 abandon  题目给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例1234给定 nums = [2, 7, 11, 15], target = 9因为 nums[0] + nums[1] = 2 + 7 =">
+<meta name="description" content="leetcode 中的 abandon  难度：简单标签：数组，哈希表题目：two-sum 题目给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例1234给定 nums = [2, 7, 11, 15], target = 9因为 num">
 <meta name="keywords" content="算法,leetcode,array,hash-table">
 <meta property="og:type" content="website">
 <meta property="og:title" content="1. 两数之和">
 <meta property="og:url" content="https://joker764.github.io/leetcode/1-两数之和.html">
 <meta property="og:site_name" content="JoJo">
-<meta property="og:description" content="leetcode 中的 abandon  题目给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例1234给定 nums = [2, 7, 11, 15], target = 9因为 nums[0] + nums[1] = 2 + 7 =">
+<meta property="og:description" content="leetcode 中的 abandon  难度：简单标签：数组，哈希表题目：two-sum 题目给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例1234给定 nums = [2, 7, 11, 15], target = 9因为 num">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-03T09:27:04.682Z">
+<meta property="og:image" content="https://pic.leetcode-cn.com/146e209493728cd7b9fd6095c5947300732799db9b28b2f8e497525ea7b31d58-Messages%20Image(1369442164).png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/d54dcd98bf9b8f5f5575893a9c253dda04cb177436322a9b41ce89290deb651d-Messages%20Image(3072076888).png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/c486f3ff7e4b810dd228acad621aa76899eb39b053723d663fc0359dc1d85fac-Messages%20Image(645062534).png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/89121495efbd8b51444cf5a4a1326073e1bd801cd7070a4d82a6897d3c86ba9f-Messages%20Image(2668429756).png">
+<meta property="og:updated_time" content="2019-09-04T01:37:03.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="1. 两数之和">
-<meta name="twitter:description" content="leetcode 中的 abandon  题目给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例1234给定 nums = [2, 7, 11, 15], target = 9因为 nums[0] + nums[1] = 2 + 7 =">
+<meta name="twitter:description" content="leetcode 中的 abandon  难度：简单标签：数组，哈希表题目：two-sum 题目给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例1234给定 nums = [2, 7, 11, 15], target = 9因为 num">
+<meta name="twitter:image" content="https://pic.leetcode-cn.com/146e209493728cd7b9fd6095c5947300732799db9b28b2f8e497525ea7b31d58-Messages%20Image(1369442164).png">
 
 
 
@@ -305,6 +310,7 @@
           <blockquote>
 <p>leetcode 中的 abandon</p>
 </blockquote>
+<p>难度：<a href="https://joker764.github.io/leetcode/difficulty/easy.html">简单</a><br>标签：<a href="https://joker764.github.io/leetcode/tag/array.html">数组</a>，<a href="https://joker764.github.io/leetcode/tag/hash-table.html">哈希表</a><br>题目：<a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">two-sum</a></p>
 <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个整数数组 <code>nums</code> 和一个目标值 <code>target</code>，请你在该数组中找出和为目标值的那 <strong>两个</strong> 整数，并返回他们的数组下标。</p>
 <p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
 <h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [2, 7, 11, 15], target = 9</span><br><span class="line"></span><br><span class="line">因为 nums[0] + nums[1] = 2 + 7 = 9</span><br><span class="line">所以返回 [0, 1]</span><br></pre></td></tr></table></figure>
@@ -312,8 +318,33 @@
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
 <li>标签：哈希映射</li>
 <li>本身通过暴力解法，时间复杂度也只有 <code>O(n2)</code></li>
-<li>由于哈希查找算法的时间</li>
+<li>由于哈希查找算法的时间复杂度为 <code>O(1)</code>，所以可以利用哈希容器来降低时间复杂度</li>
+<li>遍历数组 <code>nums</code>，<code>i</code> 为当前下标，每个值都判断 <code>map</code> 中是否存在 <code>target-nums[i]</code> 的 key 值</li>
 </ul>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h3><p><strong>Java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[j] == target - nums[i]) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; i, j &#125;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"No two sum solution"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Python</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; List[int]:</span></span><br><span class="line">        length = len(nums)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(length):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, length):</span><br><span class="line">                <span class="keyword">if</span> nums[i] + nums[j] == target:</span><br><span class="line">                    <span class="keyword">return</span> [i, j]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>时间复杂度：<code>O(n2)</code></li>
+<li>空间复杂度：<code>O(1)</code></li>
+</ul>
+<h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p><strong>Java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(target - nums[i])) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;map.get(target-nums[i]),i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(nums[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"No two sum solution"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Python</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; List[int]:</span></span><br><span class="line">        hashmap = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i,value <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            complement = target - value</span><br><span class="line">            <span class="keyword">if</span> complement <span class="keyword">in</span> hashmap:</span><br><span class="line">                <span class="keyword">return</span> &#123;hashmap[complement], i&#125;</span><br><span class="line">            hashmap[value] = i</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>时间复杂度：<code>O(n)</code></li>
+<li>空间复杂度：<code>O(n)</code></li>
+</ul>
+<h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><p><img src="https://pic.leetcode-cn.com/146e209493728cd7b9fd6095c5947300732799db9b28b2f8e497525ea7b31d58-Messages%20Image(1369442164).png" alt="1"></p>
+<p><img src="https://pic.leetcode-cn.com/d54dcd98bf9b8f5f5575893a9c253dda04cb177436322a9b41ce89290deb651d-Messages%20Image(3072076888).png" alt="2"></p>
+<p><img src="https://pic.leetcode-cn.com/c486f3ff7e4b810dd228acad621aa76899eb39b053723d663fc0359dc1d85fac-Messages%20Image(645062534).png" alt="3"></p>
+<p><img src="https://pic.leetcode-cn.com/89121495efbd8b51444cf5a4a1326073e1bd801cd7070a4d82a6897d3c86ba9f-Messages%20Image(2668429756).png" alt="4"></p>
 
         
       </div>
@@ -438,7 +469,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-text">思路</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#暴力解法"><span class="nav-text">暴力解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表"><span class="nav-text">哈希表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图解"><span class="nav-text">图解</span></a></li></ol></div>
             
 
           </div>
