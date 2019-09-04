@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://images.xiaozhuanlan.com/photo/2019/eea6f944dd5d522a079b43d409f620d7.png">
 <meta property="og:image" content="https://images.xiaozhuanlan.com/photo/2019/242ab9b89650e22c816ebdeea7311ac5.png">
 <meta property="og:image" content="https://images.xiaozhuanlan.com/photo/2019/7ba1179cfa1bba68f85cd7538256a5a1.jpg">
-<meta property="og:updated_time" content="2019-09-04T08:06:39.229Z">
+<meta property="og:updated_time" content="2019-09-04T09:36:54.226Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM 面试题（一）">
 <meta name="twitter:description" content="JVM 内存模型、Java 对象的创建过程、对象的访问定位、判断对象，常量，类是否还有用…">
@@ -505,7 +505,7 @@
 <h2 id="4-Minor-GC-和-Full-GC-的区别"><a href="#4-Minor-GC-和-Full-GC-的区别" class="headerlink" title="4. Minor GC 和 Full GC 的区别"></a>4. Minor GC 和 Full GC 的区别</h2><p>大多数情况下，对象在新生代中 eden 区分配。当 eden 区没有足够空间进行分配时，虚拟机将发起一次 Minor GC。</p>
 <ul>
 <li>新生代 GC（Minor GC）：只发生在新生代的垃圾收集动作，Minor GC 非常频繁，回收速度一般也比较快</li>
-<li>老年代 GC（Major GC/Full GC）：只发生在老年代的 GC，出现了 Major GC 经常会伴随至少一次的 Minor GC（并非绝对），Major GC 的速度一般会比 Minor GC 的速度慢 10 倍以上。</li>
+<li>老年代 GC（Major GC/Full GC）：只发生在老年代的 GC，出现了 Major GC 经常会伴随至少一次的 Full GC（并非绝对），Major GC 的速度一般会比 Minor GC 的速度慢 10 倍以上。</li>
 </ul>
 <h2 id="5-判断对象是否死亡"><a href="#5-判断对象是否死亡" class="headerlink" title="5. 判断对象是否死亡"></a>5. 判断对象是否死亡</h2><blockquote>
 <p>堆中几乎放着所有的对象实例，对堆垃圾回收前的第一步就是要判断那些对象已经死亡（即不能再被任何途径使用的对象）</p>
@@ -590,6 +590,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/09/04/JVM-面试题（二）/" rel="prev" title="JVM 面试题（二）">
+                JVM 面试题（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -667,7 +671,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
