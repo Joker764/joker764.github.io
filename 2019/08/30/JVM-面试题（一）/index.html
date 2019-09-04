@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="JVM 内存模型、Java 对象的创建过程、对象的访问定位…">
+<meta name="description" content="JVM 内存模型、Java 对象的创建过程、对象的访问定位、判断对象，常量，类是否还有用…">
 <meta name="keywords" content="java,面试,jvm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM 面试题（一）">
 <meta property="og:url" content="https://joker764.github.io/2019/08/30/JVM-面试题（一）/index.html">
 <meta property="og:site_name" content="JoJo">
-<meta property="og:description" content="JVM 内存模型、Java 对象的创建过程、对象的访问定位…">
+<meta property="og:description" content="JVM 内存模型、Java 对象的创建过程、对象的访问定位、判断对象，常量，类是否还有用…">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/interview/1-2.png?raw=true">
 <meta property="og:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-3%E5%A0%86%E7%BB%93%E6%9E%84.png">
@@ -94,10 +94,10 @@
 <meta property="og:image" content="https://images.xiaozhuanlan.com/photo/2019/eea6f944dd5d522a079b43d409f620d7.png">
 <meta property="og:image" content="https://images.xiaozhuanlan.com/photo/2019/242ab9b89650e22c816ebdeea7311ac5.png">
 <meta property="og:image" content="https://images.xiaozhuanlan.com/photo/2019/7ba1179cfa1bba68f85cd7538256a5a1.jpg">
-<meta property="og:updated_time" content="2019-09-04T03:51:58.348Z">
+<meta property="og:updated_time" content="2019-09-04T08:06:39.229Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM 面试题（一）">
-<meta name="twitter:description" content="JVM 内存模型、Java 对象的创建过程、对象的访问定位…">
+<meta name="twitter:description" content="JVM 内存模型、Java 对象的创建过程、对象的访问定位、判断对象，常量，类是否还有用…">
 <meta name="twitter:image" content="https://github.com/Joker764/joker764.github.io/blob/src/images/interview/1-2.png?raw=true">
 
 
@@ -388,7 +388,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4k 字
+                  4.8k 字
                 </span>
               
 
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  14 分钟
+                  16 分钟
                 </span>
               
             </div>
@@ -425,7 +425,7 @@
       
 
       
-        <p>JVM 内存模型、Java 对象的创建过程、对象的访问定位…</p>
+        <p>JVM 内存模型、Java 对象的创建过程、对象的访问定位、判断对象，常量，类是否还有用…</p>
 <a id="more"></a>
 
 <h2 id="1-Java-内存模型"><a href="#1-Java-内存模型" class="headerlink" title="1. Java 内存模型"></a>1. Java 内存模型</h2><p>Java 虚拟机在执行 Java 程序的过程中会把它所管理的内存区域划分为若干个不同的数据区域：</p>
@@ -524,7 +524,29 @@
 <p>如果一个独享具有强引用，那就类似于必不可少的生活永平，垃圾回收器绝对不会回收它。当内存空间不足时，Java 虚拟机宁愿 OOM，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题。</p>
 <h3 id="6-2-软引用（Soft-Reference）"><a href="#6-2-软引用（Soft-Reference）" class="headerlink" title="6.2 软引用（Soft Reference）"></a>6.2 软引用（Soft Reference）</h3><p>如果一个对象只有软引用，那就类似于可有可无的生活用品。如果内存的空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存。</p>
 <p>软引用可以和一个引用队列（Reference Queue）联合使用，如果软引用所引用的对象被垃圾回收，Java 虚拟机就会把这个软引用加入到与之关联的引用队列中。</p>
-<h3 id="6-3-弱引用（Weak-Reference）"><a href="#6-3-弱引用（Weak-Reference）" class="headerlink" title="6.3 弱引用（Weak Reference）"></a>6.3 弱引用（Weak Reference）</h3>
+<h3 id="6-3-弱引用（Weak-Reference）"><a href="#6-3-弱引用（Weak-Reference）" class="headerlink" title="6.3 弱引用（Weak Reference）"></a>6.3 弱引用（Weak Reference）</h3><p>如果一个对象只具有弱引用，那就类似于可有可无的生活用品。</p>
+<p>弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间是否足够，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程，因此不一定会很快发现那些只具有弱引用的对象。</p>
+<p>弱引用也可以和引用队列联合使用。</p>
+<h3 id="6-4-虚引用（Phantom-Reference）"><a href="#6-4-虚引用（Phantom-Reference）" class="headerlink" title="6.4 虚引用（Phantom Reference）"></a>6.4 虚引用（Phantom Reference）</h3><p><code>虚引用</code> 顾名思义，就是形同虚设，与其他几种引用不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收。</p>
+<p><strong>虚引用主要用来跟踪对象被垃圾回收的活动。</strong></p>
+<p><strong>虚引用与软引用和弱引用的一个区别在于：</strong></p>
+<p>虚引用必须和引用队列（ReferenceQueue）联合使用。当垃 圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。程序可以通过判断引用队列中是 否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。程序如果发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。</p>
+<p>特别注意，在程序设计中一般很少使用弱引用与虚引用，使用软引用的情况较多，这是因为<strong>软引用可以加速JVM对垃圾内存的回收速度，可以维护系统的运行安全，防止内存溢出（OutOfMemory）等问题的产生</strong>。</p>
+<h2 id="7-判断常量是否废弃"><a href="#7-判断常量是否废弃" class="headerlink" title="7. 判断常量是否废弃"></a>7. 判断常量是否废弃</h2><blockquote>
+<p>运行时常量池主要回收的是废弃的常量，那么如何判断常量的废弃呢？</p>
+</blockquote>
+<p>假如在常量池中存在字符串 <code>&quot;abc&quot;</code>，如果当前没有任何 <code>String</code> 对象引用该字符串常量的话，就说明常量 <code>&quot;abc&quot;</code> 就是废弃常量，如果这时候发生内存回收的话而且有必要的话，<code>&quot;abc&quot;</code> 就会被系统清理出常量池。</p>
+<h2 id="8-判断类是否无用"><a href="#8-判断类是否无用" class="headerlink" title="8. 判断类是否无用"></a>8. 判断类是否无用</h2><blockquote>
+<p>无用的类是由方法区回收</p>
+</blockquote>
+<p>判断一个常量是否是 <strong>废弃变量</strong> 比较简单，但判断一个类是否是 <strong>无用的类</strong> 的条件比较苛刻：</p>
+<ul>
+<li>该类所有的实例都已经被回收，也就是说 Java 堆中不存在该类的任何实例</li>
+<li>加载该类的 <code>ClassLoader</code> 已经被回收</li>
+<li>该类对应的  <code>java.lang.Class</code> 对象没有在任何地方被引用，无法在任何地方通过发射访问该类的方法</li>
+</ul>
+<p>虚拟机<strong>可以</strong>对满足上述 3 个条件的无用类进行回收，并不是<strong>一定</strong>。</p>
+
       
     </div>
     
@@ -700,7 +722,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Java-内存模型"><span class="nav-text">1. Java 内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-程序计数器"><span class="nav-text">1.1 程序计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-虚拟机栈"><span class="nav-text">1.2 虚拟机栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-本地方法栈"><span class="nav-text">1.3 本地方法栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-堆"><span class="nav-text">1.4 堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-方法区"><span class="nav-text">1.5 方法区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-1-方法区和永久代的关系"><span class="nav-text">1.5.1 方法区和永久代的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-2-常用参数"><span class="nav-text">1.5.2 常用参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-3-为什么要将永久代（PermGen）替换为元空间（MetaSpace）呢？"><span class="nav-text">1.5.3 为什么要将永久代（PermGen）替换为元空间（MetaSpace）呢？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-运行时常量"><span class="nav-text">1.6 运行时常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-直接内存"><span class="nav-text">1.7 直接内存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Java-对象的创建过程"><span class="nav-text">2. Java 对象的创建过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-类加载检查"><span class="nav-text">2.1 类加载检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-分配内存"><span class="nav-text">2.2 分配内存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-内存分配的两种方式"><span class="nav-text">2.2.1 内存分配的两种方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-分配内存并发问题"><span class="nav-text">2.2.2 分配内存并发问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-初始化零值"><span class="nav-text">2.3 初始化零值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-设置对象头"><span class="nav-text">2.4 设置对象头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-执行-init-方法"><span class="nav-text">2.5 执行 init 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-对象的访问定位方式"><span class="nav-text">3. 对象的访问定位方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-句柄"><span class="nav-text">3.1 句柄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-直接指针"><span class="nav-text">3.2 直接指针</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Minor-GC-和-Full-GC-的区别"><span class="nav-text">4. Minor GC 和 Full GC 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-判断对象是否死亡"><span class="nav-text">5. 判断对象是否死亡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-引用计数法"><span class="nav-text">5.1 引用计数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-可达性分析算法"><span class="nav-text">5.2 可达性分析算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-对象的引用"><span class="nav-text">6. 对象的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-强引用（Strong-Reference）"><span class="nav-text">6.1 强引用（Strong Reference）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-软引用（Soft-Reference）"><span class="nav-text">6.2 软引用（Soft Reference）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-弱引用（Weak-Reference）"><span class="nav-text">6.3 弱引用（Weak Reference）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Java-内存模型"><span class="nav-text">1. Java 内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-程序计数器"><span class="nav-text">1.1 程序计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-虚拟机栈"><span class="nav-text">1.2 虚拟机栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-本地方法栈"><span class="nav-text">1.3 本地方法栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-堆"><span class="nav-text">1.4 堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-方法区"><span class="nav-text">1.5 方法区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-1-方法区和永久代的关系"><span class="nav-text">1.5.1 方法区和永久代的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-2-常用参数"><span class="nav-text">1.5.2 常用参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-3-为什么要将永久代（PermGen）替换为元空间（MetaSpace）呢？"><span class="nav-text">1.5.3 为什么要将永久代（PermGen）替换为元空间（MetaSpace）呢？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-运行时常量"><span class="nav-text">1.6 运行时常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-直接内存"><span class="nav-text">1.7 直接内存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Java-对象的创建过程"><span class="nav-text">2. Java 对象的创建过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-类加载检查"><span class="nav-text">2.1 类加载检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-分配内存"><span class="nav-text">2.2 分配内存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-内存分配的两种方式"><span class="nav-text">2.2.1 内存分配的两种方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-分配内存并发问题"><span class="nav-text">2.2.2 分配内存并发问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-初始化零值"><span class="nav-text">2.3 初始化零值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-设置对象头"><span class="nav-text">2.4 设置对象头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-执行-init-方法"><span class="nav-text">2.5 执行 init 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-对象的访问定位方式"><span class="nav-text">3. 对象的访问定位方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-句柄"><span class="nav-text">3.1 句柄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-直接指针"><span class="nav-text">3.2 直接指针</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Minor-GC-和-Full-GC-的区别"><span class="nav-text">4. Minor GC 和 Full GC 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-判断对象是否死亡"><span class="nav-text">5. 判断对象是否死亡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-引用计数法"><span class="nav-text">5.1 引用计数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-可达性分析算法"><span class="nav-text">5.2 可达性分析算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-对象的引用"><span class="nav-text">6. 对象的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-强引用（Strong-Reference）"><span class="nav-text">6.1 强引用（Strong Reference）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-软引用（Soft-Reference）"><span class="nav-text">6.2 软引用（Soft Reference）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-弱引用（Weak-Reference）"><span class="nav-text">6.3 弱引用（Weak Reference）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-虚引用（Phantom-Reference）"><span class="nav-text">6.4 虚引用（Phantom Reference）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-判断常量是否废弃"><span class="nav-text">7. 判断常量是否废弃</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-判断类是否无用"><span class="nav-text">8. 判断类是否无用</span></a></li></ol></div>
             
 
           </div>
