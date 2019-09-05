@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="JoJo">
 <meta property="og:description" content="1. 数据库命名规范 所有数据库对象名称必须使用小写字母并用下划线分割 禁止使用保留字段 命名要能做到见名识意，并且最后不要超过 32 个字符 临时库表必须以 tmp_ 为前缀，以日期为后缀 备份表必须使用 bak_ 为前缀并以日期（时间戳）为后缀 所有存储相同数据的列名和列类型必须一致  2. 数据库基本设计规范1. 所有表必须使用 InnoDB 存储引擎 没有特殊要求（即 InnoDB 无">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-05T09:52:49.579Z">
+<meta property="og:updated_time" content="2019-09-05T09:55:06.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL 规范">
 <meta name="twitter:description" content="1. 数据库命名规范 所有数据库对象名称必须使用小写字母并用下划线分割 禁止使用保留字段 命名要能做到见名识意，并且最后不要超过 32 个字符 临时库表必须以 tmp_ 为前缀，以日期为后缀 备份表必须使用 bak_ 为前缀并以日期（时间戳）为后缀 所有存储相同数据的列名和列类型必须一致  2. 数据库基本设计规范1. 所有表必须使用 InnoDB 存储引擎 没有特殊要求（即 InnoDB 无">
@@ -512,56 +512,41 @@
 </li>
 </ul>
 <h2 id="5-SQL-开发规范"><a href="#5-SQL-开发规范" class="headerlink" title="5. SQL 开发规范"></a>5. SQL 开发规范</h2><ul>
-<li><p>建议使用预编译语句进行数据库操作</p>
-</li>
-<li><p>避免数据类型的隐式转换，会带来索引失效</p>
-<ul>
+<li>建议使用预编译语句进行数据库操作</li>
+<li>避免数据类型的隐式转换，会带来索引失效<ul>
 <li><code>SELECT name, phone FROM customer WHERE id = &#39;111&#39;</code></li>
 </ul>
 </li>
-<li><p>充分利用表上已经创建的索引</p>
-</li>
-<li><p>数据库设计时，要考虑后续的扩展</p>
-</li>
-<li><p>程序连接不同的数据库使用不同的账号，进行跨库查询</p>
-<ul>
+<li>充分利用表上已经创建的索引</li>
+<li>数据库设计时，要考虑后续的扩展</li>
+<li>程序连接不同的数据库使用不同的账号，进行跨库查询<ul>
 <li>为数据库迁移和分库分表留出余地</li>
 <li>降低业务耦合</li>
 <li>避免权限过大而产生的安全风险</li>
 </ul>
 </li>
-<li><p>禁止使用 <code>SELECT *</code> </p>
-</li>
-<li><p>禁止使用不含字段的 <code>INSERT</code> 语句</p>
-<ul>
+<li>禁止使用 <code>SELECT *</code> </li>
+<li>禁止使用不含字段的 <code>INSERT</code> 语句<ul>
 <li>错误：<code>INSERT INTO t VALUES(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</code></li>
 <li>正确：<code>INSERT INTO t(c1, c2, c3) VALUES (&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</code></li>
 </ul>
 </li>
-<li><p>避免使用子查询，因为无法使用索引</p>
-</li>
-<li><p>避免使用 <code>JOIN</code> 关联太多的表</p>
-</li>
-<li><p>减少同数据库的交互操作</p>
-</li>
-<li><p>对同一列进行 <code>OR</code> 判断时，使用 <code>IN</code> 替代 <code>OR</code>，因为 <code>IN</code> 能有效的利用索引</p>
-</li>
-<li><p>禁止使用 <code>ORDER BY rand()</code> 进行随机排序</p>
-</li>
-<li><p><code>WHERE</code> 从句中禁止对列进行函数转换和计算：</p>
-<ul>
+<li>避免使用子查询，因为无法使用索引</li>
+<li>避免使用 <code>JOIN</code> 关联太多的表</li>
+<li>减少同数据库的交互操作</li>
+<li>对同一列进行 <code>OR</code> 判断时，使用 <code>IN</code> 替代 <code>OR</code>，因为 <code>IN</code> 能有效的利用索引</li>
+<li>禁止使用 <code>ORDER BY rand()</code> 进行随机排序</li>
+<li><code>WHERE</code> 从句中禁止对列进行函数转换和计算：<ul>
 <li>错误：<code>WHERE date(create_time) = &#39;20191001&#39;</code></li>
 <li>正确：<code>WHERE create_time &gt;= &#39;20191001&#39; AND create_time &lt; &#39;20190102&#39;</code></li>
 </ul>
 </li>
-<li><p>在明显不会有重复值时使用 <code>UNION ALL</code> 而不是 <code>UNION</code></p>
-<ul>
+<li>在明显不会有重复值时使用 <code>UNION ALL</code> 而不是 <code>UNION</code><ul>
 <li><code>UNION</code> 会把两个结果集的所有数据放到临时表中再去进行去重操作</li>
 <li><code>UNION ALL</code> 不会对结果集进行去重操作</li>
 </ul>
 </li>
-<li><p>拆分复杂的大 SQL 分为多个小 SQL</p>
-</li>
+<li>拆分复杂的大 SQL 分为多个小 SQL</li>
 </ul>
 <h2 id="6-数据库操作行为规范"><a href="#6-数据库操作行为规范" class="headerlink" title="6. 数据库操作行为规范"></a>6. 数据库操作行为规范</h2><p><strong>超过 100 万行的批量写操作（<code>UPDATE</code>、<code>INSERT</code>、<code>DELETE</code>）要分批多次进行操作</strong></p>
 <ul>
