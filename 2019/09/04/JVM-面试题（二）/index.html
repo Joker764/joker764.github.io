@@ -97,7 +97,8 @@
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1326194/201810/1326194-20181017225802481-709835773.png">
 <meta property="og:image" content="https://images.xiaozhuanlan.com/photo/2019/b11ec323269c0b4eca43c663eaa42d8f.png">
 <meta property="og:image" content="https://images.xiaozhuanlan.com/photo/2019/81744a8cfb9eb03f57c3915bdba9a9e6.png">
-<meta property="og:updated_time" content="2019-09-04T10:13:31.813Z">
+<meta property="og:image" content="https://images.xiaozhuanlan.com/photo/2019/80f3af661a8724c4dee84411c166c03d.png">
+<meta property="og:updated_time" content="2019-09-05T02:07:20.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM 面试题（二）">
 <meta name="twitter:description" content="垃圾回收算法、垃圾回收器、类加载机制…">
@@ -391,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.5k 字
+                  4.3k 字
                 </span>
               
 
@@ -407,7 +408,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  13 分钟
+                  16 分钟
                 </span>
               
             </div>
@@ -595,6 +596,25 @@
 <p><strong>OutPut</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">类加载器是:sun.misc.Launcher$AppClassLoader@18b4aac2</span><br><span class="line">load Log class successfully</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
 
+<h2 id="5-双亲委派模型"><a href="#5-双亲委派模型" class="headerlink" title="5. 双亲委派模型"></a>5. 双亲委派模型</h2><h3 id="5-1-介绍"><a href="#5-1-介绍" class="headerlink" title="5.1 介绍"></a>5.1 介绍</h3><p>每一个类都有一个对应它的类加载器。系统中的 <code>ClassLoader</code> 在协同工作的时候会默认使用 <strong>双亲委派模型</strong>。即在类加载的时候，系统会首先判断当前类是否被加载过。已经被加载的类会直接返回，否则才会尝试加载。</p>
+<p>加载的时候，首先会把该请求委派该父类加载器的 <code>loadClass()</code> 处理，因此所有的请求最终都应该传送到顶层的启动类加载器 <code>BootstrapClassLoader</code> 中。当父类加载器无法处理时，才由自己处理。当父类加载器为 <code>null</code> 时，会使用启动类加载器 <code>BootstrapClassLoader</code> 作为父类加载器。</p>
+<p><img src="https://images.xiaozhuanlan.com/photo/2019/80f3af661a8724c4dee84411c166c03d.png" alt></p>
+<p>每个类加载都有一个父类加载器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoaderDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"ClassLodarDemo's ClassLoader is "</span> + ClassLoaderDemo.class.getClassLoader());</span><br><span class="line">        System.out.println(<span class="string">"The Parent of ClassLodarDemo's ClassLoader is "</span> + ClassLoaderDemo.class.getClassLoader().getParent());</span><br><span class="line">        System.out.println(<span class="string">"The GrandParent of ClassLodarDemo's ClassLoader is "</span> + ClassLoaderDemo.class.getClassLoader().getParent().getParent());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Output</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ClassLodarDemo&apos;s ClassLoader is sun.misc.Launcher$AppClassLoader@18b4aac2</span><br><span class="line">The Parent of ClassLodarDemo&apos;s ClassLoader is sun.misc.Launcher$ExtClassLoader@1b6d3586</span><br><span class="line">The GrandParent of ClassLodarDemo&apos;s ClassLoader is null</span><br></pre></td></tr></table></figure>
+
+<p><code>AppClassLoader</code> 的父类加载器为 <code>ExtClassLoader</code>，<code>ExtClassLoader</code> 的父类加载器为 <code>null</code>，<code>null</code> 并不代表 <code>ExtClassLoader</code> 没有父类加载器，而是 <code>BootstrapClassLoader</code>。</p>
+<p>这里的 <strong>双亲类加载器</strong> 更多的是表达 <strong>父母这一辈</strong> 的人，另外类加载器之间的 <strong>父子</strong> 关系也不是通过继承来实现的，而是通过 <strong>优先级</strong> 来决定的：</p>
+<blockquote>
+<p>The Java platform uses a delegation model for loading classes. <strong>The basic idea is that every class loader has a “parent” class loader.</strong> When loading a class, a class loader first “delegates” the search for the class to its parent class loader before attempting to find the class itself.</p>
+</blockquote>
+<h3 id="5-2-双亲委派模型实现源码分析"><a href="#5-2-双亲委派模型实现源码分析" class="headerlink" title="5.2 双亲委派模型实现源码分析"></a>5.2 双亲委派模型实现源码分析</h3><p>双亲委派模型的实现代码非常简单，逻辑非常清晰，都集中在 <code>java.lang.ClassLoader</code> 中的 <code>loadClass()</code> 中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ClassLoader parent; </span><br><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="keyword">boolean</span> resolve)</span><br><span class="line">        <span class="keyword">throws</span> ClassNotFoundException</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (getClassLoadingLock(name)) &#123;</span><br><span class="line">            <span class="comment">// 首先，检查请求的类是否已经被加载过</span></span><br><span class="line">            Class&lt;?&gt; c = findLoadedClass(name);</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">long</span> t0 = System.nanoTime();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (parent != <span class="keyword">null</span>) &#123;<span class="comment">//父加载器不为空，调用父加载器loadClass()方法处理</span></span><br><span class="line">                        c = parent.loadClass(name, <span class="keyword">false</span>);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;<span class="comment">//父加载器为空，使用启动类加载器 BootstrapClassLoader 加载</span></span><br><span class="line">                        c = findBootstrapClassOrNull(name);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                   <span class="comment">//抛出异常说明父类加载器无法完成加载请求</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">long</span> t1 = System.nanoTime();</span><br><span class="line">                    <span class="comment">//自己尝试加载</span></span><br><span class="line">                    c = findClass(name);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// this is the defining class loader; record the stats</span></span><br><span class="line">                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</span><br><span class="line">                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</span><br><span class="line">                    sun.misc.PerfCounter.getFindClasses().increment();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (resolve) &#123;</span><br><span class="line">                resolveClass(c);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> c;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-双亲委派模型的好处"><a href="#5-3-双亲委派模型的好处" class="headerlink" title="5.3 双亲委派模型的好处"></a>5.3 双亲委派模型的好处</h3><p>双亲委派模型保证了 Java 程序的稳定运行，可以避免类的重复加载（JVM 区分不同类的方式不仅仅根据类名，相同类文件被不同的类加载器加载产生的是两个不同的类），也保证了 Java 的核心 API 不被篡改，而是每个类加载器加载自己的话就会出现一个问题，比如我们编写一个 <code>java.lang.Object</code> 类的话，那么程序运行的时候，系统就会出现多个不同的 <code>Object</code> 类。</p>
+<h3 id="5-4-如果不想用双亲委派模型怎么办"><a href="#5-4-如果不想用双亲委派模型怎么办" class="headerlink" title="5.4 如果不想用双亲委派模型怎么办"></a>5.4 如果不想用双亲委派模型怎么办</h3><p>自定义类加载器，重载 <code>loadClass()</code></p>
 
       
     </div>
@@ -638,6 +658,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/05/深入浅出-MySQl（一）/" rel="prev" title="深入浅出 MySQl（一）">
+                深入浅出 MySQl（一） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -716,7 +740,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -738,7 +762,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -771,7 +795,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-常见的垃圾回收算法"><span class="nav-text">1. 常见的垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-标记-清除-算法"><span class="nav-text">1.1 标记-清除 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-复制算法"><span class="nav-text">1.2 复制算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-标记-整理-算法"><span class="nav-text">1.3 标记-整理 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-分代收集算法"><span class="nav-text">1.4 分代收集算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-常见的垃圾回收器"><span class="nav-text">2. 常见的垃圾回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Serial-收集器"><span class="nav-text">2.1 Serial 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-ParNew-收集器"><span class="nav-text">2.2 ParNew 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Parallel-Scavenge-收集器"><span class="nav-text">2.3 Parallel Scavenge 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Serial-Old-收集器"><span class="nav-text">2.4 Serial Old 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Parallel-Old-收集器"><span class="nav-text">2.5 Parallel Old 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-CMS-收集器"><span class="nav-text">2.6 CMS 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-G1-收集器"><span class="nav-text">2.7 G1 收集器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-类文件结构"><span class="nav-text">3. 类文件结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-类的加载过程"><span class="nav-text">4. 类的加载过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-加载"><span class="nav-text">4.1 加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-类加载器"><span class="nav-text">4.2 类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-自定义类加载器"><span class="nav-text">4.3 自定义类加载器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-常见的垃圾回收算法"><span class="nav-text">1. 常见的垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-标记-清除-算法"><span class="nav-text">1.1 标记-清除 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-复制算法"><span class="nav-text">1.2 复制算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-标记-整理-算法"><span class="nav-text">1.3 标记-整理 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-分代收集算法"><span class="nav-text">1.4 分代收集算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-常见的垃圾回收器"><span class="nav-text">2. 常见的垃圾回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Serial-收集器"><span class="nav-text">2.1 Serial 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-ParNew-收集器"><span class="nav-text">2.2 ParNew 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Parallel-Scavenge-收集器"><span class="nav-text">2.3 Parallel Scavenge 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Serial-Old-收集器"><span class="nav-text">2.4 Serial Old 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Parallel-Old-收集器"><span class="nav-text">2.5 Parallel Old 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-CMS-收集器"><span class="nav-text">2.6 CMS 收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-G1-收集器"><span class="nav-text">2.7 G1 收集器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-类文件结构"><span class="nav-text">3. 类文件结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-类的加载过程"><span class="nav-text">4. 类的加载过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-加载"><span class="nav-text">4.1 加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-类加载器"><span class="nav-text">4.2 类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-自定义类加载器"><span class="nav-text">4.3 自定义类加载器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-双亲委派模型"><span class="nav-text">5. 双亲委派模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-介绍"><span class="nav-text">5.1 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-双亲委派模型实现源码分析"><span class="nav-text">5.2 双亲委派模型实现源码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-双亲委派模型的好处"><span class="nav-text">5.3 双亲委派模型的好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-如果不想用双亲委派模型怎么办"><span class="nav-text">5.4 如果不想用双亲委派模型怎么办</span></a></li></ol></li></ol></div>
             
 
           </div>
