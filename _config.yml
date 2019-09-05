@@ -15,6 +15,7 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://joker764.github.io
 root: /
+leetcode: /leetcode/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -25,6 +26,7 @@ tag_dir: tags
 archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
+leetcode_dir: leetcode
 i18n_dir: :lang
 skip_render:
 
