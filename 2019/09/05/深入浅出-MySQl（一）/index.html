@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="JoJo">
 <meta property="og:description" content="1. 帮助的使用1.1 按层次看帮助12345678910111213141516171819202122mysql&amp;gt; ? contentsYou asked for help about help category: &quot;Contents&quot;For more information, type &apos;help &amp;lt;item&amp;gt;&apos;, where &amp;lt;item&amp;gt; is one o">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-10T03:19:59.671Z">
+<meta property="og:updated_time" content="2019-09-10T05:32:07.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入浅出 MySQl（一）">
 <meta name="twitter:description" content="1. 帮助的使用1.1 按层次看帮助12345678910111213141516171819202122mysql&amp;gt; ? contentsYou asked for help about help category: &quot;Contents&quot;For more information, type &apos;help &amp;lt;item&amp;gt;&apos;, where &amp;lt;item&amp;gt; is one o">
@@ -380,7 +380,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k 字
+                  1.2k 字
                 </span>
               
 
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  5 分钟
                 </span>
               
             </div>
@@ -570,7 +570,20 @@
 <li><code>Memory</code>：将所有数据保存在 <code>RAM</code> 中，在需要快速查找引用和其他类似数据的环境下，可以提供极快的访问</li>
 <li><code>Merge</code>：允许 <code>MySQL DBA</code> 或开发人员将一系列等同的 <code>MyISAM</code> 表以逻辑方式组合在一起，并作为一个对象引用他们。对于诸如数据仓储等 <code>VLDB</code> 环境十分适合</li>
 </ul>
-<h1 id="3-选择合适的数据类型"><a href="#3-选择合适的数据类型" class="headerlink" title="3. 选择合适的数据类型"></a>3. 选择合适的数据类型</h1>
+<h1 id="3-选择合适的数据类型"><a href="#3-选择合适的数据类型" class="headerlink" title="3. 选择合适的数据类型"></a>3. 选择合适的数据类型</h1><h2 id="3-1-选择数据类型的基本原则"><a href="#3-1-选择数据类型的基本原则" class="headerlink" title="3.1 选择数据类型的基本原则"></a>3.1 选择数据类型的基本原则</h2><ul>
+<li>前提：选择合适的存储引擎</li>
+<li>选择原则：根据特定的存储引擎，确定如何选择合适的数据类型</li>
+</ul>
+<p><strong>MyISAM</strong></p>
+<ul>
+<li>最好使用固定长度的数据列代替可变长度的数据列</li>
+</ul>
+<p><strong>InnoDB</strong></p>
+<ul>
+<li>建议使用 <code>VARCHAR</code> 类型</li>
+<li>对于 <code>InnoDB</code> 数据表，内部的行存储格式没有区分固定长度和</li>
+</ul>
+
       
     </div>
     
@@ -697,7 +710,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -752,7 +765,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-帮助的使用"><span class="nav-text">1. 帮助的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-按层次看帮助"><span class="nav-text">1.1 按层次看帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-快速查阅帮助"><span class="nav-text">1.2 快速查阅帮助</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-表类型（存储引擎）的选择"><span class="nav-text">2. 表类型（存储引擎）的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Mysql-存储引擎概述"><span class="nav-text">2.1 Mysql 存储引擎概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-各种存储引擎的特性"><span class="nav-text">2.2 各种存储引擎的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-选择合适的存储引擎"><span class="nav-text">2.3 选择合适的存储引擎</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-选择合适的数据类型"><span class="nav-text">3. 选择合适的数据类型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-帮助的使用"><span class="nav-text">1. 帮助的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-按层次看帮助"><span class="nav-text">1.1 按层次看帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-快速查阅帮助"><span class="nav-text">1.2 快速查阅帮助</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-表类型（存储引擎）的选择"><span class="nav-text">2. 表类型（存储引擎）的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Mysql-存储引擎概述"><span class="nav-text">2.1 Mysql 存储引擎概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-各种存储引擎的特性"><span class="nav-text">2.2 各种存储引擎的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-选择合适的存储引擎"><span class="nav-text">2.3 选择合适的存储引擎</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-选择合适的数据类型"><span class="nav-text">3. 选择合适的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-选择数据类型的基本原则"><span class="nav-text">3.1 选择数据类型的基本原则</span></a></li></ol></li></ol></div>
             
 
           </div>
