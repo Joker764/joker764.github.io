@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="JoJo">
 <meta property="og:description" content="1. 帮助的使用1.1 按层次看帮助12345678910111213141516171819202122mysql&amp;gt; ? contentsYou asked for help about help category: &quot;Contents&quot;For more information, type &apos;help &amp;lt;item&amp;gt;&apos;, where &amp;lt;item&amp;gt; is one o">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-10T05:32:07.386Z">
+<meta property="og:updated_time" content="2019-09-11T13:49:28.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入浅出 MySQl（一）">
 <meta name="twitter:description" content="1. 帮助的使用1.1 按层次看帮助12345678910111213141516171819202122mysql&amp;gt; ? contentsYou asked for help about help category: &quot;Contents&quot;For more information, type &apos;help &amp;lt;item&amp;gt;&apos;, where &amp;lt;item&amp;gt; is one o">
@@ -380,7 +380,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k 字
+                  1.5k 字
                 </span>
               
 
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  5 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -581,8 +581,54 @@
 <p><strong>InnoDB</strong></p>
 <ul>
 <li>建议使用 <code>VARCHAR</code> 类型</li>
-<li>对于 <code>InnoDB</code> 数据表，内部的行存储格式没有区分固定长度和</li>
+<li>对于 <code>InnoDB</code> 数据表，内部的行存储格式没有区分固定长度和可变长度列，因此本质上，使用固定长度的 <code>CHAR</code> 列不一定比使用可变长度的 <code>VARCHAR</code> 列简单</li>
+<li>主要的性能影响因素是数据行使用的存储总量</li>
+<li><code>CHAR</code> 占用的空间多于 <code>VARCHAR</code>，因此使用 <code>VARCHAR</code> 来最小化需要处理的数据行的存储总量和磁盘 <code>I/O</code> 是比较好的</li>
 </ul>
+<h2 id="3-2-固定长度数据列和可变长度数据列"><a href="#3-2-固定长度数据列和可变长度数据列" class="headerlink" title="3.2 固定长度数据列和可变长度数据列"></a>3.2 固定长度数据列和可变长度数据列</h2><h3 id="3-3-CHAR-与-VARCHAR"><a href="#3-3-CHAR-与-VARCHAR" class="headerlink" title="3.3 CHAR 与 VARCHAR"></a>3.3 <code>CHAR</code> 与 <code>VARCHAR</code></h3><blockquote>
+<p><code>char</code> 与 <code>varchar</code> 类型类似，但它们保存和检索的方式不同。它们的最大长度和是否尾部空格被保留等方面也不同。在存储或检索过程中不进行大小写转换</p>
+</blockquote>
+<p><strong><code>char</code> 和 <code>varchar</code> 的区别</strong></p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th><code>CHAR(4)</code></th>
+<th>存储需求</th>
+<th><code>VARCHAR(4)</code></th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&#39;&#39;</code></td>
+<td><code>&#39;    &#39;</code></td>
+<td>4 个字节</td>
+<td><code>&#39;&#39;</code></td>
+<td>1 个字节</td>
+</tr>
+<tr>
+<td><code>&#39;ab&#39;</code></td>
+<td><code>&#39;ab  &#39;</code></td>
+<td>4 个字节</td>
+<td><code>&#39;ab&#39;</code></td>
+<td>3 个字节</td>
+</tr>
+<tr>
+<td><code>&#39;abcd&#39;</code></td>
+<td><code>&#39;abcd&#39;</code></td>
+<td>4 个字节</td>
+<td><code>&#39;abcd&#39;</code></td>
+<td>5 个字节</td>
+</tr>
+<tr>
+<td><code>&#39;abcdefgh&#39;</code></td>
+<td><code>&#39;abcd&#39;</code></td>
+<td>4 个字节</td>
+<td><code>&#39;abcd&#39;</code></td>
+<td>5 个字节</td>
+</tr>
+</tbody></table>
+<p>注：上表中最后一行的值只适用于不使用严格模式时，如果 <code>MySQL</code></p>
 
       
     </div>
@@ -710,7 +756,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -732,7 +778,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -765,7 +811,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-帮助的使用"><span class="nav-text">1. 帮助的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-按层次看帮助"><span class="nav-text">1.1 按层次看帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-快速查阅帮助"><span class="nav-text">1.2 快速查阅帮助</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-表类型（存储引擎）的选择"><span class="nav-text">2. 表类型（存储引擎）的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Mysql-存储引擎概述"><span class="nav-text">2.1 Mysql 存储引擎概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-各种存储引擎的特性"><span class="nav-text">2.2 各种存储引擎的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-选择合适的存储引擎"><span class="nav-text">2.3 选择合适的存储引擎</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-选择合适的数据类型"><span class="nav-text">3. 选择合适的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-选择数据类型的基本原则"><span class="nav-text">3.1 选择数据类型的基本原则</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-帮助的使用"><span class="nav-text">1. 帮助的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-按层次看帮助"><span class="nav-text">1.1 按层次看帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-快速查阅帮助"><span class="nav-text">1.2 快速查阅帮助</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-表类型（存储引擎）的选择"><span class="nav-text">2. 表类型（存储引擎）的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Mysql-存储引擎概述"><span class="nav-text">2.1 Mysql 存储引擎概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-各种存储引擎的特性"><span class="nav-text">2.2 各种存储引擎的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-选择合适的存储引擎"><span class="nav-text">2.3 选择合适的存储引擎</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-选择合适的数据类型"><span class="nav-text">3. 选择合适的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-选择数据类型的基本原则"><span class="nav-text">3.1 选择数据类型的基本原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-固定长度数据列和可变长度数据列"><span class="nav-text">3.2 固定长度数据列和可变长度数据列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-CHAR-与-VARCHAR"><span class="nav-text">3.3 CHAR 与 VARCHAR</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
